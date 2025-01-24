@@ -51,7 +51,7 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>3</td>
  <td>VMware</td>
- <td>ESXi installation and configuration</td>
+ <td>Create a virtual machine via the vSphere client</td>
  <td></td>
  <td></td>
  <td></td>
@@ -62,17 +62,6 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>4</td>
  <td>VMware</td>
- <td>Create a virtual machine via the vSphere client</td>
- <td></td>
- <td></td>
- <td></td>
- <td></td>
- <td></td>
-</tr>
-
-<tr>
- <td>5</td>
- <td>VMware</td>
  <td>Working with alarms</td>
  <td></td>
  <td></td>
@@ -82,7 +71,7 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 <tr>
- <td>6</td>
+ <td>5</td>
  <td>Networking</td>
  <td>Networking fundamentals - the OSI model and SSH protocol</td>
  <td></td>
