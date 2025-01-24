@@ -98,26 +98,3 @@ They abstract the physical storage.
 > 
 > Using the Host client is useful in test/dev environments or when the vCenter Server is not reachable.
 
-
-## Exercises 
-
-
-No data store 
-On the Logs tab, a support bundle can be created that includes log files and system information
-
-- Start the SSH service so you can connect to the host via SSH (should never be done in production).
-
-
-
-
-Create Support Bundle
-
-### :pencil2: 
-
-
-### :pencil2: 
-
-    There is no VLAN isolation, so all devices on the same physical or virtual network can communicate directly.
-
-
-connect ssh from ec2, how? 
