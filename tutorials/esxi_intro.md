@@ -45,6 +45,10 @@ A NIC is hardware that connects a device to a network. It's recommended to have 
 5. Select the 2 adapters to be available in your host:
    - [x] `vmnic0`
    - [x] `vmnic1`
+6. Next, enter the **IPv4 Configuration** screen, and choose **Set static IPv4 address**. The is **no need** to change the IP address of your host. 
+7. Exit the configurations screen and choose **Yes** when asking to apply the configurations. 
+8. In the next step, choose **Test Management Network** to ensure your setting were configured properly. Make sure you ping the **default gateway**, the **primary DNS server** (should be the same), and the **ESXi hostname** (should be failed).
+
 
 #### 🧐 Check yourself
 
@@ -53,16 +57,6 @@ Exploring the **Configure Management Network** screen, answer the below question
 - What is the IPv4 address of your host?
 - Where did it get the IP address from? 
 - Which IP address that my packets would be sent to, when I want to talk with the Internet from my ESXi host?
-
-
-
-   
-
-
-
-
-
-
 
 
 
