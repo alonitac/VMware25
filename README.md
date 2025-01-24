@@ -40,7 +40,7 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>2</td>
  <td>VMware</td>
- <td>ESXi installation and configuration</td>
+ <td><a href="tutorials/esxi_intro.md">ESXi installation and configuration</a></td>
  <td></td>
  <td></td>
  <td></td>
@@ -50,6 +50,17 @@ All you lab environment is available through an RDP connection (access will be p
 
 <tr>
  <td>3</td>
+ <td>VMware</td>
+ <td>The networking stack in a single ESXi host</td>
+ <td><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/esxi_networking.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>4</td>
  <td>VMware</td>
  <td>Create a virtual machine via the vSphere client</td>
  <td></td>
@@ -70,15 +81,5 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
 </tr>
 
-<tr>
- <td>5</td>
- <td>Networking</td>
- <td>Networking fundamentals - the OSI model and SSH protocol</td>
- <td></td>
- <td></td>
- <td></td>
- <td></td>
- <td></td>
-</tr>
 
 </table>
