@@ -30,7 +30,7 @@ All you lab environment is available through an RDP connection (access will be p
  <td>1</td>
  <td>Intro</td>
  <td>Intro to virtualization in VMware</td>
- <td><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/intro_to_sdlc.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
+ <td><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/vmware_virtualization_intro.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
  <td></td>
  <td></td>
  <td></td>
@@ -62,10 +62,10 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>4</td>
  <td>VMware</td>
- <td>Create a virtual machine via the vSphere client</td>
+ <td><a href="tutorials/vcenter_intro.md">Create a virtual machine via the vSphere client</a></td>
  <td></td>
  <td></td>
- <td></td>
+ <td><a href="tutorials/vcenter_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td></td>
  <td></td>
 </tr>
