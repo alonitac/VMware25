@@ -8,11 +8,19 @@ Usually, a fresh ESXi 8 installation is done by directly installing it on a phys
 However, since we are operating in a lab environment with **nested ESXi** (ESXi running as a VM on Ubuntu), we will start the installation from setup wizard, as if you already booted from the installation media.
 
 
-You'll be installing ESXi on a system equipped with a **4-core Intel Xeon processor, 4GB RAM**.
+You'll be installing ESXi on the following hardware specifications:
 
-in addition, you have 2 disks, and 2 uplinks... 
+ - 4-core Intel Xeon processor.
+ - 4GB RAM.
+ - 2 disks:
+   - 32GB used for the internal operations of the ESXi.
+   - 100GB used for VM disks. 
+- 2 network interface cards (NICs).
+
+Obviously the ESXi is not running on real hardware but is instead being virtualized in the Linux lab.
 
 1. Connect to your lab environment via RDP.
+2. Open up a terminal and create an ESXi host simply by `create-esxi <your-host-name>`, while changing `<your-host-name>` to a host name, e.g. `alon-esxi8-host-1`.
 2. To view the **Direct Console User Interface (DCUI)** screen of your ESXi host (as if you were physically in front of it), open a terminal and type the `virt-manager` command.
 3. In the opened window, select your ESXi host and click **Open**. 
 4. Once the ESXi installer is launched, follow the instructions there to complete the host setup wizard. **Notes**:
@@ -24,12 +32,7 @@ in addition, you have 2 disks, and 2 uplinks...
 
 
 5. Once the installation compete, click **Enter** to reboot your host. 
-6. Since this is a virtual ESXi (not a real physical server as in real life), you have to start it manually after the reboot by (change `<host-name>` to your host name).:
- 
-```bash
-sudo virsh start <host-name>
-```
-
+6. Since this is a virtual ESXi (not a real physical server as in real life), you have to start it manually after the reboot by (change `<host-name>` to your host name). You can do so from the `virt-manager`. 
 
 ## Configure the management network
 

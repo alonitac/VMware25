@@ -71,7 +71,7 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 <tr>
- <td>4</td>
+ <td>5</td>
  <td>VMware</td>
  <td>Working with alarms</td>
  <td></td>
