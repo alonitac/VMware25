@@ -8,7 +8,7 @@ using your browser.
 
 ## Entering the vShpere web client
 
-1. From your lab environment, open the Chrome web browser and visit https://192.168.122
+1. From your lab environment, open the Chrome web browser and visit https://192.168.122.122
 2. Login to the system as an administrator
 3. Click on the **Menu** hamburger icon on the top left and select **Inventory**. This will take you to the inventory page where you find all the objects associated with vCenter, such as data centers, hosts, clusters, networking, storage, and virtual machines.
 
