@@ -64,7 +64,7 @@ Read the bellow notes and **carefully** follow the setup wizard:
 After creation, power on your instance, enter the web console, and follow the instructions to setup the OS.
 
 > [!IMPORTANT]
-> **When setup root password, enable the "Allow SSH login using password" option**
+> **When setup root password, enable the "Allow root SSH login with password" option**
 > 
 > If you forgot to do that, login from the web console and perform:
 > 
@@ -74,6 +74,7 @@ After creation, power on your instance, enter the web console, and follow the in
 > 
 > Then restart your instance. 
 
+Does your VM have IP address (different from `localhost`)? If not, try to change the VLAN ID of the port group the VM was provision in. 
 
 Try to connect to your instance via SSH from the lab environment (outside vCenter) terminal:
 
