@@ -1,4 +1,4 @@
-# Intro to vCenter
+# vCenter and the vSphere web client
 
 The **vCenter Server** is a central point of management to manage resources from individual ESXi hosts, so that those resources can be shared among virtual machines in the entire
 **datacenter**.
@@ -6,7 +6,7 @@ The **vCenter Server** is a central point of management to manage resources from
 The **vSphere Web Client** is the interface to vCenter Server, lets you perform all administrative tasks by
 using your browser.
 
-## Entering the vShpere web client
+## Entering the vSphere web client
 
 1. From your lab environment, open the Chrome web browser and visit https://192.168.122.122
 2. Login to the system as an administrator

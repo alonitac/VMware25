@@ -11,7 +11,7 @@ However, since we are operating in a lab environment with **nested ESXi** (ESXi 
 You'll be installing ESXi on the following hardware specifications:
 
  - 4-core Intel Xeon processor.
- - 4GB RAM.
+ - 16GB RAM.
  - 2 disks:
    - 32GB used for the internal operations of the ESXi.
    - 100GB used for VM disks. 
