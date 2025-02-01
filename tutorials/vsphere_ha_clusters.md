@@ -98,38 +98,41 @@ Which one of your hosts is the primary? Which is secondary?
 As mentioned, virtual machines in your cluster must be located on **shared, not local, storage**,
 otherwise they cannot be failed over in the case of a host failure, and DRS cannot migrate them between hosts to balance the workload.
 
+![][vmware_storage_shared_dstastore]
+
 **Datastores**, to remind you, are logical containers that hide specifics of physical storage from virtual machines,
 and provide a uniform model (in a VMFS format) for storing the virtual machine files. 
 
 Currently, we use a traditional local hard disk based datastores for VMs located inside your ESXi host.
 
-TODO figure vmhba0 SATA VMFS
+![][vmware_storage_local_dstastore]
 
 A **storage area network (SAN)** is a specialized high-speed network that connects ESXi hosts to high-performance storage systems.
 ESXi supports the common iSCSI protocol to connect to SAN systems.
 The SCSI-based storage devices can be formatted as a regular VMFS datastores.
 
-TODO figure iSCSI
+![][vmware_storage_iscsi_dstastore]
 
 In the ESXi context, the term **target** identifies a single **storage unit** that the host can access.
 
 The terms **storage device** and **LUN** describe a logical volume that represents storage space on a target.
 
-TODO explain each stuent has LUN id
-
 ![][vmware_storage_target_lun]
 
-Logical Unit Number (LUN) within the SCSI target.
+To practice shared datastores, each one of you create a Logical Unit Number (LUN) within the same SCSI target.
 
-#### Allocate pysical storage and configure Configure the Software iSCSI Adapter
+#### Allocate physical storage and Configure the Software iSCSI Adapter in your hosts
 
-You can create a 200GB virtual iSCSI storage device by:
+You can allocate a 200GB virtual iSCSI storage device by executing the following command from a terminal in our lab:
 
-```bash
-allocate-iscsi-storage-lun
+```console
+$ allocate-iscsi-storage-lun
+Creating disk at /var/lib/libvirt/images/ubuntu-shared-disk.raw...
+Formatting '/var/lib/libvirt/images/ubuntu-shared-disk.raw', fmt=raw size=214748364800
+Creating iSCSI logical unit (TID: 1, LUN: XXXX)...
 ```
 
-You'll the as an output the target ID and LUN ID of your storage, to be used ... your cluster.
+Use the **LUN number** to identify your storage device.
 
 1. In the vSphere Client, navigate to your ESXi host.
 2. Click the **Configure** tab.
@@ -319,3 +322,7 @@ Enable VM Monitoring (VMware Tools Heartbeat)
     Go to vSphere HA Settings → VM Monitoring and enable it.
 
 [vmware_storage_target_lun]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_target_lun.png
+[vmware_storage_shared_dstastore]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_shared_dstastore.png
+[vmware_storage_local_dstastore]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_local_dstastore.png
+[vmware_storage_iscsi_dstastore]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_iscsi_dstastore.png
+

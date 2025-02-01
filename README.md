@@ -71,19 +71,20 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 <tr>
- <td align="center" colspan="8"><br><b>Host clusters</b><br>Create cluster of multiple ESXi hosts<br><br></td>
+ <td>5</td>
+ <td>Networking</td>
+ <td><a href="tutorials/networking_OSI_model.md">The OSI model</a></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/networking_OSI_model.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/networking_OSI_model.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/networking_OSI_model.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
 </tr>
 
 <tr>
- <td>5</td>
- <td>Networking</td>
- <td>The OSI model</td>
- <td></td>
- <td></td>
- <td></td>
- <td></td>
- <td></td>
+ <td align="center" colspan="8"><br><b>Host clusters</b><br>Create cluster of multiple ESXi hosts<br><br></td>
 </tr>
+
 
 <tr>
  <td>5</td>
