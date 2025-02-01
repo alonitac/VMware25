@@ -89,8 +89,8 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>6</td>
  <td>VMware</td>
- <td><a href="tutorials/vsphere_ha_clusters">HA host clusters</a></td>
- <td></td>
+ <td><a href="tutorials/vsphere_ha_clusters.md">HA host clusters</a></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/vsphere_ha_cluster.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
  <td></td>
  <td align="center"><a href="tutorials/vsphere_ha_clusters.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td></td>
