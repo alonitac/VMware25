@@ -178,151 +178,70 @@ Let's configure our shared datastores to be used for heartbeats.
 
 # Exercises 
 
-### :pencil2: Migrate hosts to anotherclusters 
+### :pencil2: Provision VM in the cluster
 
-DRS must be enabled in the cluster for it to automatically migrate the VMs.
- If DRS is disabled, the VMs will need to be manually migrated, and HA will not be able to assist with VM placement.
-vSphere HA will not be involved in the migration of VMs when manually taking the host out of the cluster. HA only takes action when a host failure occurs. However, it ensures that VMs are restarted elsewhere if the host fails during the operation.
-If your VMs are on local datastores (not shared), you need to ensure that the data is accessible to other hosts before draining the host, either by using shared storage or replicating VM data across hosts.
+Create a **new** content library while the data is stores in your shared datastore. 
+Load the AlmaLinux ISO to the new content library, as done in the [previous tutorial](vsphere_intro.md).
 
+> [!NOTE]
+> To keep our vCenter clean, delete your old content library. 
 
-maintenance mode 
+Provision a new AlmaLinux in your cluster: 
+- Choose your shared datastore to store your VM disk. 
+- Allocate **only 1GB memory** for the VM.
+- Note that you don't choose a specific host to provision the VM in, but let the DRS to schedule it for you. 
+- Complete the OS installation setup. 
 
-https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vcenterhost.doc/GUID-32E79431-7DC9-48DB-A72C-CCA652A3B588.html
+### :pencil2: Check the HA functionality
 
-### :pencil2: check HA - shutdown host. 
+1. Open up a terminal in our lab and use the `virt-manager` command to shutdown the host in which your VM is running on. 
+2. Observe the cluster in action. Does it detect the failure and restart the VM on another host?
+   - Check if the VM is automatically powered on by another host.
+   - Verify the failover time—how long does it take for the VM to become available again?
+   - Look at the vSphere HA events and logs to confirm the failover process.
+3. Turn on the host, and now let's **isolate the host** by disconnecting `vmk0` from the vSwitch.
+   - Open the vSphere Client and navigate to the host where the VM is running on.
+   - Go to **Networking** → **vSwitches**, locate `vmk0`, and disconnect it.
 
+> [!NOTE]
+> #### How vSphere Detects Isolation
+> 1. The host checks for heartbeat signals from other hosts.
+> 1. If no heartbeats are received, it tries to ping the isolation address.
+> 1. If both fail, the host is declared isolated.
 
-
-### :pencil2: deletion of dswitch 
-
-https://knowledge.broadcom.com/external/article/377194/migrate-vmkernel-adapter-from-distribute.html
-
-- migrate VMkernel adaper in the standard switch 
-
-make sure network uplink (physical adapters) redundency was not lost 
-
-maintenance mode - try start VM ? insufficient failover level 
-
-
-### :pencil2:
-
-It protects against application failure by continuously monitoring a virtual machine and
-resetting it in the event that a failure is detected.
-
-It protects against datastore accessibility failures by restarting affected virtual machines on
-other hosts which still have access to their datastores.
-
-It protects virtual machines against network isolation by restarting them if their host becomes
-isolated on the management or vSAN network. This protection is provided even if the
-network has become partitioned.
-
-### :pencil2: Migrate virtual machine 
+4. Observe how the cluster reacts:
+   - Does HA detect the isolation?
+   - Do the VMs remain running, or do they get restarted on another host?
+   - Check the cluster events and tasks for any isolation-related events.
+5. After a few minutes, reconnect `vmk0` and verify if the host rejoins the cluster properly.
 
 
+### :pencil2: Host maintenance mode 
 
-### :pencil2: VM monitoring 
-
-For VM Monitoring to work, VMware tools must be installed.
-
-### :pencil2: vSphere Fault Tolerance (FT)
-
-FT is a high availability (HA) feature that provides continuous availability for virtual machines (VMs) by creating a live shadow copy of a VM that runs on another ESXi host.
-
-Unlike vSphere HA, which restarts VMs after a failure, FT ensures zero downtime by instantly switching to the secondary VM if the primary VM fails
-
-Primary VM: Runs on one ESXi host and executes workloads.
-2️⃣ Secondary VM: A mirrored, continuously synchronized copy of the primary VM runs on a different ESXi host.
-
-Both VMs execute the same instructions simultaneously.
-4️⃣ Failover: If the primary VM fails, the secondary VM takes over instantly, preventing downtime.
-
-Synchronizes CPU and memory states between primary and secondary VMs.
-
-How to Enable vSphere FT
-
-1️⃣ Ensure Cluster is Configured for vSphere HA.
-2️⃣ Verify Hosts Support FT (Check vSphere FT Compatibility).
-3️⃣ Enable Fault Tolerance for the VM in vSphere Client:
-
-    Right-click the VM → Select Fault Tolerance → Click Turn On Fault Tolerance.
-    4️⃣ Configure a Dedicated FT Logging Network.
-    5️⃣ Monitor FT Status in vCenter.
-
-When to Use vSphere FT?
-
-✔️ Mission-Critical Applications: Databases, financial systems, healthcare apps.
-
-
-### :pencil2: maintenance mode exercise 
-
-enter maintenance mode to drain machine for maintenance
-
-
-
-Maintenance Mode in an ESXi host is a special state that allows you to perform updates, repairs, or other administrative tasks on the host without disrupting the overall operation of your environment.
+Maintenance Mode in an ESXi host is a special state that allows you to perform updates, repairs, or remove the host from the cluster, without disrupting the overall operation of your environment.
 
 When a host is placed into Maintenance Mode:
 
-    VM Migration:
-        All running virtual machines (VMs) are either migrated to other hosts in the cluster using vMotion or shut down if vMotion isn't available.
-        No new VMs can be powered on the host.
+- All running virtual machines (VMs) are migrated to other hosts in the cluster using vMotion.
+- Features like DRS ensure VMs are automatically redistributed across other hosts in the cluster before the host enters Maintenance Mode.
 
-    Host Management:
-        Allows you to safely update ESXi, apply patches, upgrade hardware, or perform diagnostics.
-        Prevents any unintended disruption to VMs during these activities.
+1. Identify the host in which your VM is running on. Right-click on the host and select **Enter Maintenance Mode**.
+2. Are all running VMs automatically migrated to other hosts using vMotion?
+3. After successful migration, exit Maintenance Mode and verify that the host and VMs resume normal operation.
 
-    Cluster Awareness:
-        Features like Distributed Resource Scheduler (DRS) ensure VMs are automatically redistributed across other hosts in the cluster before the host enters Maintenance Mode.
+### :pencil2: HA Admission controller
 
+In this exercise we'll see the Admission Controller in action. We will try to launch a VM in a cluster with poor available resources.
 
-
-
-### :pencil2: enable VM and application monitoring 
-
-### :pencil2: 
-
-check data store failure by add block rule to firewall 
-
-### :pencil2: 
-see the addmision controller in action, remove host from cluster, try to turn on VM. 
-disable the addimision controller, try to turn. 
-
-### :pencil2: 
-
-practice host isolation 
-
-### :pencil2: practice host failure and host network isolation 
-
-If a primary host cannot communicate directly with the agent on a secondary host, the secondary
-host does not respond to ICMP pings. If the agent is not issuing heartbeats, it is viewed as
-failed. The host's virtual machines are restarted on alternate hosts. If such a secondary host is
-exchanging heartbeats with a datastore, the primary host assumes that the secondary host is in
-a network partition or is network isolated. So, the primary host continues to monitor the host and
-its virtual machines.
+1. Power off your VMs.
+2. Enter all hosts of the cluster to a maintenance mode, except one.
+3. Try to turn on the VM. Intuitively, the VM should have been scheduled on the single functioning host of the cluster. 
+   But the Admission Controller will prevent this due to insufficient resources to meet the VM's requirements.
+4. Disable the admission controller, try to turn on the VM.
 
 
-### :pencil2: 
-
-Designate a separate network adapter for iSCSI.
-
-### :pencil2: 
-
-How vSphere Detects Isolation
-
-    The host checks for heartbeat signals from other hosts.
-    If no heartbeats are received, it tries to ping the isolation address (default: the default gateway).
-    If both fail, the host is declared isolated.
-
-### :pencil2: 
-
-Enable VM Monitoring (VMware Tools Heartbeat)
-
-    If the VM itself becomes unresponsive (not just the host), VM Monitoring will detect missing VMware Tools heartbeats and restart the VM.
-    Go to vSphere HA Settings → VM Monitoring and enable it.
 
 [vmware_storage_target_lun]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_target_lun.png
 [vmware_storage_shared_dstastore]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_shared_dstastore.png
 [vmware_storage_local_dstastore]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_local_dstastore.png
 [vmware_storage_iscsi_dstastore]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_iscsi_dstastore.png
-

@@ -74,7 +74,7 @@ All you lab environment is available through an RDP connection (access will be p
  <td>5</td>
  <td>Networking</td>
  <td><a href="tutorials/networking_OSI_model.md">The OSI model</a></td>
- <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/networking_OSI_model.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/vmware_networking_OSI_model.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
  <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/networking_OSI_model.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
  <td align="center"><a href="tutorials/networking_OSI_model.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td align="center"></td>
@@ -87,23 +87,12 @@ All you lab environment is available through an RDP connection (access will be p
 
 
 <tr>
- <td>5</td>
+ <td>6</td>
  <td>VMware</td>
- <td>Host clusters</td>
+ <td><a href="tutorials/vsphere_ha_clusters">HA host clusters</a></td>
  <td></td>
  <td></td>
- <td></td>
- <td></td>
- <td></td>
-</tr>
-
-<tr>
- <td>5</td>
- <td>VMware</td>
- <td>Host clusters</td>
- <td></td>
- <td></td>
- <td></td>
+ <td align="center"><a href="tutorials/vsphere_ha_clusters.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td></td>
  <td></td>
 </tr>
