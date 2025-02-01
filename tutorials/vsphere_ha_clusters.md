@@ -52,7 +52,8 @@ participate in an election to choose the cluster's primary host.
 ## Creating a HA cluster
 
 > [!NOTE]
-> HA clusters require at least 2 hosts. Follow [ESXi installation](esxi_intro.md) and [Registering host into vCenter](vsphere_intro.md) to create your second ESXi host. 
+> - HA clusters require at least 2 hosts. Follow [ESXi installation](esxi_intro.md) and [Registering host into vCenter](vsphere_intro.md) to create your second ESXi host.
+> - Delete your hosts from existed VMs. 
 
 First, let's create an empty cluster.
 
@@ -111,68 +112,88 @@ The way to a healthy HS cluster might be ... the below ... will help you to trou
 > 
 > For more information, [read here](https://knowledge.broadcom.com/external/article/326217/vcls-vms-fail-to-power-on-with-an-error.html). 
 
+#### 🧐 Check yourself
+
+Which one of your hosts is the primary? 
 
 ## Create a shared datastore
 
-As mentioned, one of the requirements for a HA cluster, 
+As mentioned, virtual machines in your cluster must be located on **shared, not local, storage**,
+otherwise they cannot be failed over in the case of a host failure, and DRS cannot migrate them between hosts to balance the workload.
 
-Currently, your VMs are on local datastores (not shared)
+**Datastores**, to remind you, are logical containers that hide specifics of physical storage from virtual machines,
+and provide a uniform model (in a VMFS format) for storing the virtual machine files. 
 
+Currently, we use a traditional local hard disk based datastores for VMs located inside your ESXi host.
 
-To store virtual disks, ESXi uses datastores. The datastores are logical containers that hide
-specifics of physical storage from virtual machines and provide a uniform model for storing the
-virtual machine files. The datastores that you deploy on block storage devices use the native
-vSphere Virtual Machine File System (VMFS) format. It is a special high-performance file system
-format that is optimized for storing virtual machines.
+TODO figure vmhba0 SATA VMFS
 
-ESXi can format SCSI-based storage devices as VMFS datastores. VMFS datastores primarily
-serve as repositories for virtual machines.
+A **storage area network (SAN)** is a specialized high-speed network that connects ESXi hosts to high-performance storage systems.
+ESXi supports the common iSCSI protocol to connect to SAN systems.
+The SCSI-based storage devices can be formatted as a regular VMFS datastores.
 
-You can store multiple virtual machines on the same VMFS datastore. Each virtual machine,
-encapsulated in a set of files, occupies a separate single directory. For the operating system
-inside the virtual machine, VMFS preserves the internal file system semantics, which ensures
-correct application behavior and data integrity for applications running in virtual machines.
-When you run multiple virtual machines, VMFS provides specific locking mechanisms for the
-virtual machine files. As a result, the virtual machines can operate safely in a SAN environment
-where multiple ESXi hosts share the same VMFS datastore.
-    
+TODO figure iSCSI
 
-Sharing the VMFS volume across multiple hosts offers several advantages, for example, the
-following:
-n
-You can use VMware Distributed Resource Scheduling (DRS) and VMware High Availability
-(HA).
-You can distribute virtual machines across different physical servers. That means you run a
-mix of virtual machines on each server, so that not all experience high demand in the same
-area at the same time. If a server fails, you can restart virtual machines on another physical
-server. If the failure occurs, the on-disk lock for each virtual machine is released. For more
-information about VMware DRS, see the vSphere Resource Management documentation. For
-information about VMware HA, see the vSphere Availability documentation.
+In the ESXi context, the term **target** identifies a single **storage unit** that the host can access.
 
-You can use vMotion to migrate running virtual machines from one physical server to
-another. For information about migrating virtual machines, see the vCenter Server and Host
-Management documentation.
+The terms **storage device** and **LUN** describe a logical volume that represents storage space on a target.
 
+TODO explain each stuent has LUN id
 
+![][vmware_storage_target_lun]
+
+Logical Unit Number (LUN) within the SCSI target.
+
+#### Allocate pysical storage and configure Configure the Software iSCSI Adapter
+
+You can create a 200GB virtual iSCSI storage device by:
+
+```bash
+create-iscsi-storage 200G
+```
+
+You'll the as an output the target ID and LUN ID of your storage, to be used ... your cluster.
+
+1. In the vSphere Client, navigate to your ESXi host.
+2. Click the **Configure** tab.
+3. Under **Storage**, click **Storage Adapters**, and click **Add Software Adapter**.
+4. From the drop-down menu, select **Add iSCSI Adapter** and confirm that you want to add the adapter.
+
+Now you need to set up target discovery addresses, so that your iSCSI storage adapter can
+determine which storage resource on the network is available for access on your ESXi host.
+
+1. Under **Storage**, click **Storage Adapters**, and select the iSCSI adapter (`vmhba#`) to configure.
+2. In the adapter submenu, click **Dynamic Discovery** and click **Add**.
+3. Enter the IP address of the storage system: `172.31.4.128`, and click **OK**.
+4. Rescan the iSCSI adapter to dynamically discovery targets. 
+5.  Under **Storage**, click **Storage Devices** and make sure you see a disk device with your LUN.
+
+Repeat the above process for the other ESXi host. 
+
+#### Configure a shared datastore for your cluster
+
+1. Right-click on your cluster, under **Storage**, choose **New Datasource**.
+2. In the **New Datastore** wizard, choose **VMFS**. Click **Next**.
+3. Name it, for example `john-netflix-service-shared-ds`. Select one of your hosts, and choose your storage device (according to your LUN).
+4. Continue with the default configurations to create the datastore. 
+5. Right-click on the cluster, under **Storage**, choose **Rescan Storage** and your datastore should be mounted to your another host automatically. 
 
 #### Configure heartbeat datastore 
 
+All secondary hosts in the cluster sends a **heartbeat** to the primary host (every second), over the network.
 
+When the primary host stops receiving these heartbeats from a secondary host, it checks 
+whether the secondary host is exchanging heartbeats via a **shared heartbeat datastore(s)**, as an alternative to the fails network connection. 
 
-Heartbeats are used by HA to monitor the health of hosts and determine if a host has failed. If a host's heartbeat fails, HA can trigger VM failover to other hosts in the cluster.
+If there are heartbeats with the datastore, the primary host assumes that the secondary host is a **network isolated**.
+So, the primary host continues to monitor the host and its virtual machines through the heartbeat datastore.
 
-Heartbeat datastores are used by vSphere HA for monitoring host health.
-You need to ensure that shared datastores are configured and accessible by all hosts in the cluster.
+Let's configure our shared datastores to be used for heartbeats.
 
-
-
-Host Isolation: If a host is considered isolated (i.e., it cannot communicate with the vCenter), HA might not attempt to restart the VMs on another host.
-
-
-Shared Storage Requirement: In practice, HA without shared storage is limited. If you have separate datastores per VM, you may need vSphere Replication or some kind of backup to enable VM recovery on another host.
-
-
-Yes, vSphere HA and DRS (Distributed Resource Scheduler) can work together to drain a host when you want to take it out of the cluster. Here's how it works:
+1. Choose your cluster, and click the **Configure** tab.
+2. In the configurations menu, under **Services**, choose **vSphere Availability**.
+3. Click to edit the **vSphere HA** configurations. 
+4. Move to the **Heartbeat Datastores** tab, choose your shared datastore as a heartbeat datastore. 
 
 
 # Exercises 
@@ -299,3 +320,20 @@ failed. The host's virtual machines are restarted on alternate hosts. If such a 
 exchanging heartbeats with a datastore, the primary host assumes that the secondary host is in
 a network partition or is network isolated. So, the primary host continues to monitor the host and
 its virtual machines.
+
+
+### :pencil2: 
+
+Designate a separate network adapter for iSCSI.
+
+### :pencil2: 
+
+How vSphere Detects Isolation
+
+    The host checks for heartbeat signals from other hosts.
+    If no heartbeats are received, it tries to ping the isolation address (default: the default gateway).
+    If both fail, the host is declared isolated.
+
+
+
+[vmware_storage_target_lun]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_target_lun.png
