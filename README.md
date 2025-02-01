@@ -23,7 +23,7 @@ All you lab environment is available through an RDP connection (access will be p
 <tr><th>#</th><th>Topic</th><th>Tutorial</th><th colspan="3">&nbsp;&nbsp;&nbsp;Resources&nbsp;&nbsp;&nbsp;</th><th>Project</th><th>Recording</th></tr>
 
 <tr>
- <td align="center" colspan="8"><br><b>Intro to Virtualization in VMware</b><br><br></td>
+ <td align="center" colspan="8"><br><b>Intro to Virtualization in VMware</b><br>Install and configure a single ESXi host, standard switch network topology, provision VMs via the vSphere web client<br><br></td>
 </tr>
 
 <tr>
@@ -66,6 +66,43 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
  <td></td>
  <td><a href="tutorials/vcenter_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td align="center" colspan="8"><br><b>Host clusters</b><br>Create cluster of multiple ESXi hosts<br><br></td>
+</tr>
+
+<tr>
+ <td>5</td>
+ <td>Networking</td>
+ <td>The OSI model</td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>5</td>
+ <td>VMware</td>
+ <td>Host clusters</td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>5</td>
+ <td>VMware</td>
+ <td>Host clusters</td>
+ <td></td>
+ <td></td>
+ <td></td>
  <td></td>
  <td></td>
 </tr>

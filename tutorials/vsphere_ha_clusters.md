@@ -1,0 +1,301 @@
+# vSphere HA Host Clusters
+
+## Overview
+
+Data centers can have planned downtime for hardware maintenance, server migration, and firmware updates. 
+An unplanned downtime (god forbid) caused from hardware or application failures.
+
+To minimize the impact of this downtime, vSphere HA clusters allow workloads to be dynamically moved to different physical servers
+without downtime or service interruption, server maintenance can be performed without requiring application and service downtime.
+
+It can also minimize or eliminate unplanned downtime by providing rapid recovery from outages.
+
+## Clusters
+
+vSphere HA clusters enable a collection of ESXi hosts to work together so that, as a group,
+they provide higher levels of availability for virtual machines than each ESXi host can provide
+individually.
+
+    The host cannot communicate with other hosts in the HA cluster.
+    The host still has access to storage (SAN, iSCSI, or NFS).
+    Other hosts may see it as failed, but it is actually running.
+    If host isolation response is configured, ESXi can power off or keep running VMs.
+
+Example of Isolation:
+
+    A host has only one management NIC, and that NIC fails.
+
+how to detect network isolation ? 
+The host checks for heartbeat signals from other hosts.
+
+When you create a vSphere HA cluster, a single host is automatically elected as the primary
+host. The primary host communicates with vCenter Server and monitors the state of all protected
+virtual machines and of the secondary hosts. Different types of host failures are possible, and
+the primary host must detect and appropriately deal with the failure. The primary host must
+distinguish between a failed host and one that is in a network partition or that has become
+network isolated. The primary host uses network and datastore heartbeating to determine the
+type of failure.
+
+
+Also note that vSphere High Availability is a host function, which means there is
+no dependency on vCenter to effectively fail over VMs to other hosts in the cluster
+
+
+an agent is uploaded to the host and configured
+to communicate with other agents in the cluster. Each host in the cluster functions as a primary
+host or a secondary host.
+
+participate in an election to choose the cluster's primary host.
+
+
+
+## Creating a HA cluster
+
+> [!NOTE]
+> HA clusters require at least 2 hosts. Follow [ESXi installation](esxi_intro.md) and [Registering host into vCenter](vsphere_intro.md) to create your second ESXi host. 
+
+First, let's create an empty cluster.
+
+1. In the vSphere Client, browse to your **data center**, and click **New Cluster**.
+2. Complete the **Basics** page, as follows:
+   - As this cluster will store workload related to the sample Netflix app, you can call it for example `john-netflix-service`.
+   - Do not turn on vSphere HA, DRS or vSAN yet.
+   - Since all ESXi hosts run the same ISO image (`8.0 GA - 20513097`), to can leave the **Manage all hosts in the cluster with a single image** enabled.
+3. In the **Image** page, choose our ESXi host image version: `8.0 GA - 20513097`.
+4. Finish the **New Cluster** wizard. 
+5. Drag your hosts into your cluster (it's recommended to set the hosts to **maintenance mode**).
+6. Browse to the cluster and enable vSphere HA.
+   - Click the **Configure** tab.
+   - Select **vSphere Availability** and click **Edit**.
+   - Toggle the **vSphere HA** option to be enabled.
+7. With **Enable Host Monitoring** enabled, hosts in the cluster can exchange network heartbeats and vSphere HA can take action when it detects failures. 
+   Keep the recovery configurations at their default settings for now, we’ll experiment with them later. on host failure, the VMs within the host should be restarted in another host.
+8. Enable DRS
+
+Using vSphere HA with DRS combines automatic failover with load balancing.
+This combination can result in a more balanced cluster after vSphere HA has moved virtual machines to different hosts.
+
+8. Choose your cluster, and click on the **Monitor** tab. Under **Tasks and Events** you can monitor progress of setting your HA configurations.
+   Upon successfully configurations, you shouldn't see any issues and alarms. 
+
+[!IMPORTANT]
+You should see powered on WM vCLS .... which are the agents .... 
+
+#### Troubleshooting 
+
+The way to a healthy HS cluster might be ... the below ... will help you to troubleshhort your cluster. 
+
+ - This host currently has no management network redundancy 
+ - The number of vSphere HA heartbeat datastores for this host is 0, which is less than required: 2 
+ - No datastore configured for host
+
+
+> [!WARNING]
+> If vCLS VMs fail to power on with an error message: 
+> 
+> ```text
+> Feature 'MWAIT' was 0, but must be 1. Failed to start the virtual machine. Module FeatureCompatLate power on failed. 
+> ```
+> 
+> The vCLC VMs are provisioned with **per VM EVC** feature enabled. Since we are working in a nested ESXi lab, you have to disable this feature. 
+> 
+> To apply the workaround, take the following steps:
+> 
+>  - Locate the vCLS VM (should be under `vCLS` dir) and open the **Configure** tab. Notice that **VMware EVC** option is **not** offered as an option.
+>  - Identify the ESXi host where the vCLS VM resides (take a look on the **Related Objects** box in the **Summary** tab).
+>  - Open the **ESXi Host Client** for this ESXi and login as root .
+>  - Right click the vCLS VM within the host, and select **Upgrade VM Compatibility**, and click on **Upgrade**.
+>  - Return to the vCLS VM in vCenter and click one the **Configure** tab for the VM. Notice that **VMware EVC** is now an option.
+>  - Click **Edit** and choose **disabled**.  
+>  - Another vCLS will power on the cluster note this.
+> 
+> For more information, [read here](https://knowledge.broadcom.com/external/article/326217/vcls-vms-fail-to-power-on-with-an-error.html). 
+
+
+## Create a shared datastore
+
+As mentioned, one of the requirements for a HA cluster, 
+
+Currently, your VMs are on local datastores (not shared)
+
+
+To store virtual disks, ESXi uses datastores. The datastores are logical containers that hide
+specifics of physical storage from virtual machines and provide a uniform model for storing the
+virtual machine files. The datastores that you deploy on block storage devices use the native
+vSphere Virtual Machine File System (VMFS) format. It is a special high-performance file system
+format that is optimized for storing virtual machines.
+
+ESXi can format SCSI-based storage devices as VMFS datastores. VMFS datastores primarily
+serve as repositories for virtual machines.
+
+You can store multiple virtual machines on the same VMFS datastore. Each virtual machine,
+encapsulated in a set of files, occupies a separate single directory. For the operating system
+inside the virtual machine, VMFS preserves the internal file system semantics, which ensures
+correct application behavior and data integrity for applications running in virtual machines.
+When you run multiple virtual machines, VMFS provides specific locking mechanisms for the
+virtual machine files. As a result, the virtual machines can operate safely in a SAN environment
+where multiple ESXi hosts share the same VMFS datastore.
+    
+
+Sharing the VMFS volume across multiple hosts offers several advantages, for example, the
+following:
+n
+You can use VMware Distributed Resource Scheduling (DRS) and VMware High Availability
+(HA).
+You can distribute virtual machines across different physical servers. That means you run a
+mix of virtual machines on each server, so that not all experience high demand in the same
+area at the same time. If a server fails, you can restart virtual machines on another physical
+server. If the failure occurs, the on-disk lock for each virtual machine is released. For more
+information about VMware DRS, see the vSphere Resource Management documentation. For
+information about VMware HA, see the vSphere Availability documentation.
+
+You can use vMotion to migrate running virtual machines from one physical server to
+another. For information about migrating virtual machines, see the vCenter Server and Host
+Management documentation.
+
+
+
+#### Configure heartbeat datastore 
+
+
+
+Heartbeats are used by HA to monitor the health of hosts and determine if a host has failed. If a host's heartbeat fails, HA can trigger VM failover to other hosts in the cluster.
+
+Heartbeat datastores are used by vSphere HA for monitoring host health.
+You need to ensure that shared datastores are configured and accessible by all hosts in the cluster.
+
+
+
+Host Isolation: If a host is considered isolated (i.e., it cannot communicate with the vCenter), HA might not attempt to restart the VMs on another host.
+
+
+Shared Storage Requirement: In practice, HA without shared storage is limited. If you have separate datastores per VM, you may need vSphere Replication or some kind of backup to enable VM recovery on another host.
+
+
+Yes, vSphere HA and DRS (Distributed Resource Scheduler) can work together to drain a host when you want to take it out of the cluster. Here's how it works:
+
+
+# Exercises 
+
+### :pencil2: Migrate hosts to anotherclusters 
+
+DRS must be enabled in the cluster for it to automatically migrate the VMs.
+ If DRS is disabled, the VMs will need to be manually migrated, and HA will not be able to assist with VM placement.
+vSphere HA will not be involved in the migration of VMs when manually taking the host out of the cluster. HA only takes action when a host failure occurs. However, it ensures that VMs are restarted elsewhere if the host fails during the operation.
+If your VMs are on local datastores (not shared), you need to ensure that the data is accessible to other hosts before draining the host, either by using shared storage or replicating VM data across hosts.
+
+
+maintenance mode 
+
+https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vcenterhost.doc/GUID-32E79431-7DC9-48DB-A72C-CCA652A3B588.html
+
+### :pencil2: check HA - shutdown host. 
+
+
+
+### :pencil2: deletion of dswitch 
+
+https://knowledge.broadcom.com/external/article/377194/migrate-vmkernel-adapter-from-distribute.html
+
+- migrate VMkernel adaper in the standard switch 
+
+make sure network uplink (physical adapters) redundency was not lost 
+
+maintenance mode - try start VM ? insufficient failover level 
+
+
+### :pencil2:
+
+It protects against application failure by continuously monitoring a virtual machine and
+resetting it in the event that a failure is detected.
+
+It protects against datastore accessibility failures by restarting affected virtual machines on
+other hosts which still have access to their datastores.
+
+It protects virtual machines against network isolation by restarting them if their host becomes
+isolated on the management or vSAN network. This protection is provided even if the
+network has become partitioned.
+
+### :pencil2: Migrate virtual machine 
+
+
+
+### :pencil2: VM monitoring 
+
+For VM Monitoring to work, VMware tools must be installed.
+
+### :pencil2: vSphere Fault Tolerance (FT)
+
+FT is a high availability (HA) feature that provides continuous availability for virtual machines (VMs) by creating a live shadow copy of a VM that runs on another ESXi host.
+
+Unlike vSphere HA, which restarts VMs after a failure, FT ensures zero downtime by instantly switching to the secondary VM if the primary VM fails
+
+Primary VM: Runs on one ESXi host and executes workloads.
+2️⃣ Secondary VM: A mirrored, continuously synchronized copy of the primary VM runs on a different ESXi host.
+
+Both VMs execute the same instructions simultaneously.
+4️⃣ Failover: If the primary VM fails, the secondary VM takes over instantly, preventing downtime.
+
+Synchronizes CPU and memory states between primary and secondary VMs.
+
+How to Enable vSphere FT
+
+1️⃣ Ensure Cluster is Configured for vSphere HA.
+2️⃣ Verify Hosts Support FT (Check vSphere FT Compatibility).
+3️⃣ Enable Fault Tolerance for the VM in vSphere Client:
+
+    Right-click the VM → Select Fault Tolerance → Click Turn On Fault Tolerance.
+    4️⃣ Configure a Dedicated FT Logging Network.
+    5️⃣ Monitor FT Status in vCenter.
+
+When to Use vSphere FT?
+
+✔️ Mission-Critical Applications: Databases, financial systems, healthcare apps.
+
+
+### :pencil2: maintenance mode exercise 
+
+enter maintenance mode to drain machine for maintenance
+
+
+
+Maintenance Mode in an ESXi host is a special state that allows you to perform updates, repairs, or other administrative tasks on the host without disrupting the overall operation of your environment.
+
+When a host is placed into Maintenance Mode:
+
+    VM Migration:
+        All running virtual machines (VMs) are either migrated to other hosts in the cluster using vMotion or shut down if vMotion isn't available.
+        No new VMs can be powered on the host.
+
+    Host Management:
+        Allows you to safely update ESXi, apply patches, upgrade hardware, or perform diagnostics.
+        Prevents any unintended disruption to VMs during these activities.
+
+    Cluster Awareness:
+        Features like Distributed Resource Scheduler (DRS) ensure VMs are automatically redistributed across other hosts in the cluster before the host enters Maintenance Mode.
+
+
+
+
+### :pencil2: enable VM and application monitoring 
+
+### :pencil2: 
+
+check data store failure by add block rule to firewall 
+
+### :pencil2: 
+see the addmision controller in action, remove host from cluster, try to turn on VM. 
+disable the addimision controller, try to turn. 
+
+### :pencil2: 
+
+practice host isolation 
+
+### :pencil2: practice host failure and host network isolation 
+
+If a primary host cannot communicate directly with the agent on a secondary host, the secondary
+host does not respond to ICMP pings. If the agent is not issuing heartbeats, it is viewed as
+failed. The host's virtual machines are restarted on alternate hosts. If such a secondary host is
+exchanging heartbeats with a datastore, the primary host assumes that the secondary host is in
+a network partition or is network isolated. So, the primary host continues to monitor the host and
+its virtual machines.
