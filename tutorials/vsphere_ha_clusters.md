@@ -1,14 +1,11 @@
 # vSphere HA Host Clusters
 
-## Overview
+## Motivation
 
 Data centers can have planned downtime for hardware maintenance, server migration, and firmware updates. 
 An unplanned downtime (god forbid) caused from hardware or application failures.
 
-To minimize the impact of this downtime, vSphere HA clusters allow workloads to be dynamically moved to different physical servers
-without downtime or service interruption, server maintenance can be performed without requiring application and service downtime.
-
-It can also minimize or eliminate unplanned downtime by providing rapid recovery from outages.
+We would like to minimize the impact of planned or unplanned downtime.
 
 ## Clusters
 
@@ -16,44 +13,11 @@ vSphere HA clusters enable a collection of ESXi hosts to work together so that, 
 they provide higher levels of availability for virtual machines than each ESXi host can provide
 individually.
 
-    The host cannot communicate with other hosts in the HA cluster.
-    The host still has access to storage (SAN, iSCSI, or NFS).
-    Other hosts may see it as failed, but it is actually running.
-    If host isolation response is configured, ESXi can power off or keep running VMs.
-
-Example of Isolation:
-
-    A host has only one management NIC, and that NIC fails.
-
-how to detect network isolation ? 
-The host checks for heartbeat signals from other hosts.
-
-When you create a vSphere HA cluster, a single host is automatically elected as the primary
-host. The primary host communicates with vCenter Server and monitors the state of all protected
-virtual machines and of the secondary hosts. Different types of host failures are possible, and
-the primary host must detect and appropriately deal with the failure. The primary host must
-distinguish between a failed host and one that is in a network partition or that has become
-network isolated. The primary host uses network and datastore heartbeating to determine the
-type of failure.
-
-
-Also note that vSphere High Availability is a host function, which means there is
-no dependency on vCenter to effectively fail over VMs to other hosts in the cluster
-
-
-an agent is uploaded to the host and configured
-to communicate with other agents in the cluster. Each host in the cluster functions as a primary
-host or a secondary host.
-
-participate in an election to choose the cluster's primary host.
-
-
-
 ## Creating a HA cluster
 
 > [!NOTE]
 > - HA clusters require at least 2 hosts. Follow [ESXi installation](esxi_intro.md) and [Registering host into vCenter](vsphere_intro.md) to create your second ESXi host.
-> - Delete your hosts from existed VMs. 
+> - Before starting, delete all existed VMs in your data center.  
 
 First, let's create an empty cluster.
 
@@ -70,8 +34,8 @@ First, let's create an empty cluster.
    - Select **vSphere Availability** and click **Edit**.
    - Toggle the **vSphere HA** option to be enabled.
 7. With **Enable Host Monitoring** enabled, hosts in the cluster can exchange network heartbeats and vSphere HA can take action when it detects failures. 
-   Keep the recovery configurations at their default settings for now, we’ll experiment with them later. on host failure, the VMs within the host should be restarted in another host.
-8. Enable DRS
+   Keep the recovery configurations at their default settings for now, we’ll experiment with them later. 
+8. Under **Service**, choose **vSphere DRS**, click **Edit** and enable **vSphere DRS**.
 
 Using vSphere HA with DRS combines automatic failover with load balancing.
 This combination can result in a more balanced cluster after vSphere HA has moved virtual machines to different hosts.
@@ -79,16 +43,24 @@ This combination can result in a more balanced cluster after vSphere HA has move
 8. Choose your cluster, and click on the **Monitor** tab. Under **Tasks and Events** you can monitor progress of setting your HA configurations.
    Upon successfully configurations, you shouldn't see any issues and alarms. 
 
-[!IMPORTANT]
-You should see powered on WM vCLS .... which are the agents .... 
+Now all your cluster's hosts participate in an election to choose the primary host.
 
-#### Troubleshooting 
+In addition, a small VM agent, named **vCLS** is provisioned first in the primary, and then in each secondary host of your cluster. 
+Each vCLS agent is configured to communicate with other agents in the cluster.
 
-The way to a healthy HS cluster might be ... the below ... will help you to troubleshhort your cluster. 
+### Troubleshooting 
 
- - This host currently has no management network redundancy 
- - The number of vSphere HA heartbeat datastores for this host is 0, which is less than required: 2 
- - No datastore configured for host
+The way to a healthy HA cluster might be long. The below section will help you to troubleshoot your cluster. 
+
+> [!WARNING]
+> ##### This host currently has no management network redundancy 
+> A production grade cluster should have at least 2 VMKernel NIC, you can stay with 1 and peacefully live with the warning. 
+
+
+
+> [!WARNING]
+> #### No datastore configured for host
+> You must configure a local datastore (at least for the vCLS VM agent)
 
 
 > [!WARNING]
@@ -112,9 +84,14 @@ The way to a healthy HS cluster might be ... the below ... will help you to trou
 > 
 > For more information, [read here](https://knowledge.broadcom.com/external/article/326217/vcls-vms-fail-to-power-on-with-an-error.html). 
 
+> [!WARNING]
+> #### The number of vSphere HA heartbeat datastores for this host is 0, which is less than required: 2
+> Don't worry, we will configure this later on. 
+
+
 #### 🧐 Check yourself
 
-Which one of your hosts is the primary? 
+Which one of your hosts is the primary? Which is secondary?
 
 ## Create a shared datastore
 
@@ -149,7 +126,7 @@ Logical Unit Number (LUN) within the SCSI target.
 You can create a 200GB virtual iSCSI storage device by:
 
 ```bash
-create-iscsi-storage 200G
+allocate-iscsi-storage-lun
 ```
 
 You'll the as an output the target ID and LUN ID of your storage, to be used ... your cluster.
@@ -334,6 +311,11 @@ How vSphere Detects Isolation
     If no heartbeats are received, it tries to ping the isolation address (default: the default gateway).
     If both fail, the host is declared isolated.
 
+### :pencil2: 
 
+Enable VM Monitoring (VMware Tools Heartbeat)
+
+    If the VM itself becomes unresponsive (not just the host), VM Monitoring will detect missing VMware Tools heartbeats and restart the VM.
+    Go to vSphere HA Settings → VM Monitoring and enable it.
 
 [vmware_storage_target_lun]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_target_lun.png
