@@ -78,7 +78,7 @@ All you lab environment is available through an RDP connection (access will be p
  <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/networking_OSI_model.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
  <td align="center"><a href="tutorials/networking_OSI_model.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td align="center"></td>
- <td>`recordings/2025-02-02`</td>
+ <td><code>recordings/2025-02-02</code></td>
 </tr>
 
 <tr>
