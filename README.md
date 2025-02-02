@@ -34,7 +34,7 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
  <td></td>
  <td></td>
- <td>`recordings/2025-01-26`</td>
+ <td><code>recordings/2025-01-26</code></td>
 </tr>	
 
 <tr>
