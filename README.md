@@ -62,10 +62,10 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>4</td>
  <td>VMware</td>
- <td><a href="tutorials/vcenter_intro.md">Create a virtual machine via the vSphere client</a></td>
+ <td><a href="tutorials/vsphere_intro.md">Create a virtual machine via the vSphere client</a></td>
  <td></td>
  <td></td>
- <td><a href="tutorials/vcenter_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td><a href="tutorials/vsphere_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td></td>
  <td></td>
 </tr>
