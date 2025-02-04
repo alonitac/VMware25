@@ -100,7 +100,7 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>5</td>
  <td>VMware</td>
- <td>Working with alarms</td>
+ <td><a href="tutorials/cluster_fix.md">Common cluster issues and troubleshoot</a></td>
  <td></td>
  <td></td>
  <td></td>
