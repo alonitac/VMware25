@@ -102,13 +102,14 @@ We'll build the [Original Storage Architecture](https://techdocs.broadcom.com/us
 
 1. You need a HA cluster with a minimum of **three ESXi hosts**, then vSAN is enabled on the cluster.
 2. VMkernel Network must allow vSAN traffic in all hosts.
-3. Your ESXi hosts must have one free SSD disk for cache, and one HDD or SSH for capacity. 
+3. Your ESXi hosts must have one free SSD disk for cache, and one HDD or SSH for capacity.
+
+   To "buy and plug" cache and capacity disks to your host, you should run the `add-vsan-disks YOUR_ESXI_HOST_NAME` (change `YOUR_ESXI_HOST_NAME` according to esxi name) command.
+   Then use the `virt-manager` to restart your ESXI nested VM to apply the new disks attachment.  
    The disk must be unformatted and unclaimed. If not, rescan the storage adapter to detect the available disks.
    
-   To "buy and plug" cache and capacity disks to your host, you should run the `add-vsan-disks YOUR_ESXI_HOST_NAME` (change `YOUR_ESXI_HOST_NAME` according to esxi name) command.
-   Then use the `virt-manager` to restart your ESXI nested VM to apply the new disks attachment. 
-2. **HA functionality must be disabled during the creation and configuration of vSAN.**
-1. Clean the iSCSI datastore built in the previous tutorial. You can also remove the storage adapter.
+4. **HA functionality must be disabled during the creation and configuration of vSAN.**
+5. Clean the iSCSI datastore built in the previous tutorial. You can also remove the storage adapter.
 
 > [!NOTE]
 > You can use the **Quickstart** wizard to quickly create and configure a vSAN cluster, but **don't** do it.
