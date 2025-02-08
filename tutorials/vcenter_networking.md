@@ -109,105 +109,15 @@ vCenter will migrate all network adapters to the distributed switch.
 
 # Exercises
 
+### :pencil2: Removing Hosts from a DSwitch
 
-### :pencil2: Networking policies 
+Try removing the host from your Distributed Switch and reverting it to a Standard Switch. 
+Both switchs should work properly (by assign one vmnic to the standard switch, the other to the DSwitch). 
 
-handle 1 vmnic to handle only vmontion traffic 
+Carefully follow any error messages that arise to understand the restrictions and how to set it properly.
 
-vmk1 only to vmontion with vmnic of it's own 
+When done, migrate everything back to the DSwitch. 
 
-
-
-What is Teaming and Failover Policy
-NIC teaming lets you increase the network capacity of a virtual switch by including two or more
-physical NICs in a team. To determine how the traffic is rerouted in case of adapter failure,
-you include physical NICs in a failover order. To determine how the virtual switch distributes
-the network traffic between the physical NICs in a team, you select load balancing algorithms
-depending on the needs and capabilities of your environment.
-NIC Teaming Policy
-You can use NIC teaming to connect a virtual switch to multiple physical NICs on a host to
-increase the network bandwidth of the switch and to provide redundancy. A NIC team can
-distribute the traffic between its members and provide passive failover in case of adapter failure
-or network outage. You set NIC teaming policies at virtual switch or port group level for a
-vSphere Standard Switch and at a port group or port level for a vSphere Distributed Switch.
-
-The Load Balancing policy determines how network traffic is distributed between the network
-adapters in a NIC team. vSphere virtual switches load balance only the outgoing traffic. Incoming
-traffic is controlled by the load balancing policy on the physical switch.
-
-## network for vmotion 
-
-
-
-## Network segmentation using VLAN 
-
-How to Use VLANs to Isolate
-Network Traffic
-
-VLANs let you segment a network into multiple logical broadcast domains at Layer 2 of the
-network protocol stack.
-
-(VLAN Tagging Modes)
-
-frontend and 2 catalog api, database 
-
-### :pencil2: Network uplink redundancy lost after migration
-
-Fix it...
-
-
-### :pencil2: deletion of dswitch 
-
-https://knowledge.broadcom.com/external/article/377194/migrate-vmkernel-adapter-from-distribute.html
-
-- migrate VMkernel adaper in the standard switch 
-
-make sure network uplink (physical adapters) redundency was not lost 
-
-maintenance mode - try start VM ? insufficient failover level 
-
-### 
-exercise - remove virtual machine from DSwitch, Remove Host.
-
-
-
-### :pencil2: 
-
-host profile - same configuration for host
-using host profile? 
-
-### :pencil2: 
-
-remove VM, remove host
-migrating VMkernel interfaces and physical NICs to a vSphere Distributed
-Switch
-
-Removing Hosts from a vSphere Distributed Switch
-
-
-
-### :pencil2: uplinks failover
-
-
-### :pencil2: vmk dedicated to vSAN only
-
-
-### :pencil2: uplink load balancing 
-
-(Route Based on IP Hash)
-
-Load balancing Specify the way an uplink is selected.
-n Route based on originating virtual port: Select an uplink based on the
-virtual port where the traffic entered the distributed switch.
-n Route based on IP hash: Select an uplink based on a hash of the
-source and destination IP addresses of each packet. For non-IP packets,
-whatever is at those offsets is used to compute the hash.
-n Route based on source MAC hash: Select an uplink based on a hash of
-the source Ethernet.
-n Route based on physical NIC load: Select an uplink based on the current
-loads of physical NICs.
-n Use explicit failover order: Always use the highest order uplink from the
-list of Active adapters which passes failover detection criteria.
 
 [vmware_networking1]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_networking1.png
 [vmware_networking2]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_networking2.png

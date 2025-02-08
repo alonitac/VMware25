@@ -104,7 +104,9 @@ We'll build the [Original Storage Architecture](https://techdocs.broadcom.com/us
 2. VMkernel Network must allow vSAN traffic in all hosts.
 3. Your ESXi hosts must have one free SSD disk for cache, and one HDD or SSH for capacity. 
    The disk must be unformatted and unclaimed. If not, rescan the storage adapter to detect the available disks.
-   **Already done for you**.
+   
+   To "buy and plug" cache and capacity disks to your host, you should run the `add-vsan-disks YOUR_ESXI_HOST_NAME` (change `YOUR_ESXI_HOST_NAME` according to esxi name) command.
+   Then use the `virt-manager` to restart your ESXI nested VM to apply the new disks attachment. 
 2. **HA functionality must be disabled during the creation and configuration of vSAN.**
 1. Clean the iSCSI datastore built in the previous tutorial. You can also remove the storage adapter.
 
@@ -129,6 +131,8 @@ To verify success configuration, go to the **Configure** tab in your cluster,
 and under **vSAN** -> **Disk Management**, you should have 3 healthy shared disks.
 In addition, you should see a shared datastore (typically called `vsanDatastore`), available to all your hosts. 
 
+Don't forget to enable HA after vSAN cluster creation. 
+
 > [!IMPORTANT]
 > After creating the vSAN cluster, please make sure to carefully read the warnings and alarms in the cluster.
 > It's important that you understand the warnings, if they can be avoided or there some error existed. 
@@ -140,57 +144,27 @@ In addition, you should see a shared datastore (typically called `vsanDatastore`
 > Therefore, since no other shared storage is accessible, we won't use heartbeat datastores.
 
 
+## Deploy a VM
+
+To check the usability of your vSAN cluster, create a AlmaLinux VM using your vSAN datastore. 
+
 # Exercises 
 
-### :pencil2: 
 
-- who is the master? 
+### :pencil2: Fail a host in a vSAN cluster
 
+Let's simulate a host failure scenario in a vSAN cluster and understand the impact on data availability.
 
-        A cluster should have only one host with the Master role. More than a single host with the Master role indicates a problem
-
-        The host with the Master role receives all CMMDS updates from all hosts in the cluster
-
-
-- who is backup role?
+1. Select Enter Maintenance Mode or Shut Down to simulate the failure.
+2. Make sure you choose Ensure Accessibility during maintenance mode to allow the VM data to remain accessible.
 
 
-        The host with the Backup role assumes the Master role if the current Master fails
-
-        Normally, only one host has the Backup role
+What happens to the virtual machine's data when the host is shut down or placed in maintenance mode?
 
 
-- who is agent? 
+vSAN will automatically rebuild the data to other available hosts if the data is replicated or mirrored.
 
 
-        Hosts with the Agent role are members of the cluster
-
-        Hosts with the Agent role can assume the Backup role or the Master role as circumstances change
-
-        In clusters of four or more hosts, more than one host has the Agent role
-
-
-
-### :pencil2: understand error and warning in skyline health 
-
-
-### :pencil2: 
-
-Designate a separate network adapter for iSCSI.
-
-### :pencil2: 
-
-deploy with witness
-
-### :pencil2: data migration precheck 
-
-
-### :pencil2: 
-
-fix Disks usage on storage controller
-
-
-### :pencil2: 
 
 Using Esxcli Commands with vSAN
 Use Esxcli commands to obtain information about vSAN OSA or vSAN ESA and to troubleshoot
@@ -199,8 +173,6 @@ The following commands are available:
 Command Description
 esxcli vsan network list Verify which VMkernel adapters are used for vSAN communication.
 esxcli vsan storage list List storage disks claimed by vSAN.
-esxcli vsan storagepool list List storage pool claimed by vSAN ESA. This command is applicable only for vSAN
-ESA cluster.
 esxcli vsan cluster get Get vSAN cluster information.
 esxcli vsan health Get vSAN cluster health status.
 esxcli vsan debug Get vSAN cluster debug information.
