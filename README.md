@@ -109,4 +109,38 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 
+<tr>
+ <td>8</td>
+ <td>VMware</td>
+ <td><a href="tutorials/cluster_fix.md">Distributed switches in HA cluster</a></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>8</td>
+ <td>VMware</td>
+ <td><a href="tutorials/cluster_fix.md">Cluster storage with vSAN</a></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>8</td>
+ <td>VMware</td>
+ <td><a href="tutorials/cluster_fix.md">Deploy the Netflix app</a></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+</tr>
+
+
 </table>
