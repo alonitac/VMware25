@@ -112,10 +112,10 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>8</td>
  <td>VMware</td>
- <td><a href="tutorials/cluster_fix.md">Distributed switches in HA cluster</a></td>
+ <td><a href="tutorials/vcenter_networking.md">Distributed switches in HA cluster</a></td>
  <td></td>
- <td></td>
- <td></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/vmware_cluster_networking.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/vcenter_networking.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td></td>
  <td></td>
 </tr>
@@ -123,10 +123,10 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>8</td>
  <td>VMware</td>
- <td><a href="tutorials/cluster_fix.md">Cluster storage with vSAN</a></td>
+ <td><a href="tutorials/vcenter_storage.md">Cluster storage with vSAN</a></td>
  <td></td>
- <td></td>
- <td></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/vmware_cluster_vsan.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/vcenter_storage.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td></td>
  <td></td>
 </tr>

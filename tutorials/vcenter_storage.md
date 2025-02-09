@@ -156,34 +156,7 @@ To check the usability of your vSAN cluster, create a AlmaLinux VM using your vS
 
 Let's simulate a host failure scenario in a vSAN cluster and understand the impact on data availability.
 
-1. Select Enter Maintenance Mode or Shut Down to simulate the failure.
-2. Make sure you choose Ensure Accessibility during maintenance mode to allow the VM data to remain accessible.
-
-
-What happens to the virtual machine's data when the host is shut down or placed in maintenance mode?
-
-
-vSAN will automatically rebuild the data to other available hosts if the data is replicated or mirrored.
-
-
-
-Using Esxcli Commands with vSAN
-Use Esxcli commands to obtain information about vSAN OSA or vSAN ESA and to troubleshoot
-your vSAN environment.
-The following commands are available:
-Command Description
-esxcli vsan network list Verify which VMkernel adapters are used for vSAN communication.
-esxcli vsan storage list List storage disks claimed by vSAN.
-esxcli vsan cluster get Get vSAN cluster information.
-esxcli vsan health Get vSAN cluster health status.
-esxcli vsan debug Get vSAN cluster debug information.
-
-esxcli vsan health cluster list
-
-- remove from vsan cluste: `esxcli vsan cluster leave` when the host is in maintenance mode in the cluster (dont take out)
-- `esxcli vsan cluster get`
-- `esxcli vsan storage list`
-- clear partition t
+Enter the host on which your VM is running to a maintenance mode, make sure the host is successfully migrated to another host in the cluster.
 
 
 [vmware_storage_local_dstastore]: https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/vmware_storage_local_dstastore.png
