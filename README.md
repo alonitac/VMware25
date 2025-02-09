@@ -121,7 +121,7 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 <tr>
- <td>8</td>
+ <td>9</td>
  <td>VMware</td>
  <td><a href="tutorials/vcenter_storage.md">Cluster storage with vSAN</a></td>
  <td></td>
@@ -132,7 +132,7 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 <tr>
- <td>8</td>
+ <td>10</td>
  <td>VMware</td>
  <td>Deploy the Netflix app</td>
  <td></td>
