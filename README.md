@@ -134,7 +134,7 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>8</td>
  <td>VMware</td>
- <td><a href="tutorials/cluster_fix.md">Deploy the Netflix app</a></td>
+ <td>Deploy the Netflix app</td>
  <td></td>
  <td></td>
  <td></td>
