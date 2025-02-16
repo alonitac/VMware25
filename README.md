@@ -98,18 +98,6 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 <tr>
- <td>7</td>
- <td>VMware</td>
- <td><a href="tutorials/cluster_fix.md">Common cluster issues and troubleshoot</a></td>
- <td></td>
- <td></td>
- <td></td>
- <td></td>
- <td></td>
-</tr>
-
-
-<tr>
  <td>8</td>
  <td>VMware</td>
  <td><a href="tutorials/vcenter_networking.md">Distributed switches in HA cluster</a></td>
@@ -134,7 +122,7 @@ All you lab environment is available through an RDP connection (access will be p
 <tr>
  <td>10</td>
  <td>VMware</td>
- <td>Deploy the Netflix app</td>
+ <td><a href="tutorials/vsan_cluster_summary_assignment.md">vSAN cluster summary assignment</a></td>
  <td></td>
  <td></td>
  <td></td>
