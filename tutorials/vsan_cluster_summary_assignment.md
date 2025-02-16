@@ -31,7 +31,7 @@ Follow the [vSphere cluster storage with vSAN](vcenter_storage.md) tutorial to c
   To fix this, see the related warning in the [HA Clusters](vsphere_ha_clusters.md) tutorial.
 - When configuring vSAN, turn off HA and DRS capabilities.
 - If you vSAN cluster is in unhealthy state and you don't know how to address the issue, 
-  it's always possible to shutdown your ESXi hosts, re-run the `add-vsan-disks ESXI_HOST_NAME` command to let the "physical" disks recreate again, and reallocate the vSAN disks.  
+  it's always possible turn-off the vSAN cluster, then shutdown your ESXi hosts, re-run the `add-vsan-disks ESXI_HOST_NAME` command to let the "physical" disks recreate again, and reallocate the vSAN disks.  
 
 
 #### Troubleshooting 
