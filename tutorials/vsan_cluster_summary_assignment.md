@@ -12,6 +12,11 @@ Follow the [vSphere cluster storage with vSAN](vcenter_storage.md) tutorial to c
 
 #### Notes
 
+> [!IMPORTANT]
+> Even though till now we used to force-off our ESXi hosts, once your vSAN cluster was configured,
+> **do not force off your ESXi hosts**. Instead, turn them off gracefully using the **Shut down** option. 
+> Forcefully kill you hosts can cause potential data corruption for vSAN disks, leading to unhealthy cluster. 
+
 - Your hosts must have **static** ip address. To check it, go to the **Configure** tab on your host, under **Networking** choose the **VMKernel adapter**, open the Edit Settings wizard of your adapter device, and unset **IPv4 Settings**, set a static ip. 
 - At least one VMKernel that accept `vSAN`, `vMotion`, `Fault tolerance` and, `Management`. 
 - HA and DRS should be turned on (unless you create the vSAN cluster). 
@@ -27,6 +32,7 @@ Follow the [vSphere cluster storage with vSAN](vcenter_storage.md) tutorial to c
 - When configuring vSAN, turn off HA and DRS capabilities.
 - If you vSAN cluster is in unhealthy state and you don't know how to address the issue, 
   it's always possible to shutdown your ESXi hosts, re-run the `add-vsan-disks ESXI_HOST_NAME` command to let the "physical" disks recreate again, and reallocate the vSAN disks.  
+
 
 #### Troubleshooting 
 
