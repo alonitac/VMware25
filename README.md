@@ -130,5 +130,55 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
 </tr>
 
+<tr>
+ <td align="center" colspan="8"><br><b>Linux administration</b><br><br></td>
+</tr>
+
+<tr>
+ <td>11</td>
+ <td>Linux</td>
+ <td><a href="tutorials/provision_alma.md">Provision AlmaLinux VM</a></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>12</td>
+ <td>Linux</td>
+ <td><a href="tutorials/linux_intro.md">Intro to Linux</a></td>
+ <td align="center"></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/vmware_linux_intro.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/linux_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>13</td>
+ <td>Linux</td>
+ <td><a href="tutorials/linux_file_management.md">File management</a></td>
+ <td align="center"></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/vmware_linux_file_management.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/linux_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+
+<tr>
+ <td>14</td>
+ <td>Linux</td>
+ <td><a href="tutorials/linux_processes.md">Processes</a></td>
+ <td align="center"></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/linux_intro.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/linux_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+
 
 </table>
