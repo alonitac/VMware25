@@ -173,11 +173,12 @@ All you lab environment is available through an RDP connection (access will be p
  <td>Linux</td>
  <td><a href="tutorials/linux_processes.md">Processes</a></td>
  <td align="center"></td>
- <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/linux_intro.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
- <td align="center"><a href="tutorials/linux_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/vmware_linux_processes.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/linux_processes.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td align="center"></td>
  <td></td>
 </tr>
+
 
 
 
