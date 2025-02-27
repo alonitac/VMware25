@@ -131,7 +131,7 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 <tr>
- <td align="center" colspan="8"><br><b>Linux administration</b><br><br></td>
+ <td align="center" colspan="8"><br><b>Linux Administration</b><br><br></td>
 </tr>
 
 <tr>
@@ -179,7 +179,29 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
 </tr>
 
+<tr>
+ <td align="center" colspan="8"><br><b>Containers and Orchestration</b><br><br></td>
+</tr>
 
+<tr>
+ <td>15</td>
+ <td>Containers</td>
+ <td><a href="tutorials/docker_intro.md">Intro to Docker containers</a></td>
+ <td><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/docker_intro_non_devops.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
 
+<tr>
+ <td>16</td>
+ <td>Containers</td>
+ <td><a href="tutorials/docker_containers.md">Working with containers</a></td>
+ <td align="center"></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/docker_containers_non_devops.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/docker_containers.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
 
 </table>
