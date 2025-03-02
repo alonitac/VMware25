@@ -236,7 +236,7 @@ The service is composed by 2 **microservices**:
    The app is listening on port `8080`. 
 6. You have 2 options to access the app:
    - (Recommended) From the local machine, visit: http://ip-192-168-122-251.ec2.internal.exit-zero.click:8080 (while changing `192-168-122-251` to your VM IP).
-   - From the lab browser, visit the app by: http://<your-vm-ip>:8080
+   - From the lab browser, visit the app by: `http://<your-vm-ip>:8080`.
 
 
 > [!TIP]
@@ -289,7 +289,7 @@ After=network.target
 # absolute path you the app workdir
 WorkingDirectory=/root/NetflixFrontend
 
-# the command that starts your app, e.g. `python app.py` or `node /usr/bin/npm start` 
+# the command that starts your app, e.g. `python3 app.py` or `node /usr/bin/npm start` 
 ExecStart=node /usr/bin/npm start
 
 Environment=MOVIE_CATALOG_SERVICE=http://localhost:8080
