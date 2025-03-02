@@ -245,7 +245,7 @@ $ docker inspect netflix-frontend-4
 
 ### :pencil2: Running the Netflix service
 
-Run both the NetflixFrontend and NetflixMovieCatalog containers to make the service up and running:
+Run both the [NetflixFrontend](https://hub.docker.com/r/exit0academy/netflix-frontend) and [NetflixMovieCatalog](https://hub.docker.com/r/exit0academy/netflix-movie-catalog) containers to make the service up and running:
 
 ![docker_netflix_simple][docker_netflix_simple]
 
