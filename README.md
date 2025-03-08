@@ -204,4 +204,37 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
 </tr>
 
+<tr>
+ <td>17</td>
+ <td>Containers</td>
+ <td><a href="tutorials/docker_networking.md">Docker networking</a></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/docker_networking.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/multichoice-questions/docker_networking_non_devops.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/qm.png" /></a></td>
+ <td align="center"><a href="tutorials/docker_networking.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>18</td>
+ <td>Containers</td>
+ <td><a href="tutorials/docker_volumes.md">Docker volumes</a></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"><a href="tutorials/docker_volumes.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>19</td>
+ <td>Containers</td>
+ <td><a href="tutorials/docker_compose.md">Docker compose</a></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"><a href="tutorials/docker_compose.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
 </table>
