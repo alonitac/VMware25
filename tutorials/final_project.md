@@ -27,7 +27,7 @@ You will set up an HA and vSAN cluster with three hosts, provision multiple virt
    
 - Migrate your hosts to the dSwitch. 
 - Configure a vSAN cluster:
-   - **Don't** enable ENA.
+   - **Don't** enable ESA.
    - Configure the 100GB SSD disk to be the cache tier.
    - Configure the 1TB disk in each host to be the capacity tier. 
    - Make sure your vSAN cluster consist by a single Disk Group (usually named `Group 1`).
