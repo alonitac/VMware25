@@ -55,6 +55,42 @@ To prepare for working with Docker Compose, and later with Kubernetes, it is imp
 
 Find your favorite tutorial (there are hundreds YouTube videos and written tutorials) to see some YAML basic syntax (it takes no more than 20 minutes).
 
+> [!TIP]
+> #### Supporting YAML in nano
+> 
+> To support YAML format in `nano`, create the following final under `~/.nanorc`:
+> 
+> ```text
+> syntax "yaml" "\.ya?ml$"
+> #comment "#"
+> header "^---" "%YAML"
+> 
+> # Values
+> color green "(:|^|\s)+\S+"
+> 
+> # Keys
+> color red "(^|\s+).*+\s*:(\s|$)"
+> 
+> # Special values
+> color yellow "[:-]\s+(true|false|null)\s*$"
+> color yellow "[:-]\s+[0-9]+\.?[0-9]*(\s*($|#))"
+> color yellow "(^| )!!(binary|bool|float|int|map|null|omap|seq|set|str) "
+> 
+> # Separator
+> color brightwhite "^\s+-"
+> color brightwhite ":(\s|\t|$)"
+> 
+> # Comments
+> color brightblue "(^|[[:space:]])#.*$"
+> 
+> # Trailing whitespace
+> color ,red "[[:space:]]+$"
+> 
+> set tabsize 2       # Set indentation to 2 spaces (YAML standard)
+> set tabstospaces    # Convert tabs to spaces
+> set autoindent      # Maintain indentation level in new lines
+> ```
+
 # Exercises
 
 ### :pencil2: Deploy the Netflix stack & Monitoring stack as a Docker Compose Project
