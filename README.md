@@ -237,4 +237,9 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
 </tr>
 
+
+<tr>
+ <td align="center" colspan="8"><br><a href="tutorials/final_project.md">Final Assignment</a><br><br></td>
+</tr>
+
 </table>
