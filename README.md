@@ -239,6 +239,28 @@ All you lab environment is available through an RDP connection (access will be p
 
 
 <tr>
+ <td>20</td>
+ <td>Orchestration</td>
+ <td><a href="tutorials/k8s_provision_cluster_kubeadm_aws.md">Provision Kubernetes cluster in vCenter</a></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>21</td>
+ <td>Orchestration</td>
+ <td><a href="tutorials/k8s_intro.md">k8s intro</a></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"><a href="tutorials/k8s_intro.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+<tr>
  <td align="center" colspan="8"><br><a href="tutorials/final_project.md">Final Assignment</a><br><br></td>
 </tr>
 
