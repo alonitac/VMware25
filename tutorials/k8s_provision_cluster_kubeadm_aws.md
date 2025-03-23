@@ -74,9 +74,9 @@ The script essentially installs:
 
 1. From the **control-plane node**, initialize the cluster by:
 
-``bash
+```bash
 sudo kubeadm init
-``
+```
 
 2. **Carefully** read the output to understand how to start using your cluster, and how to join the worker node to be part of the cluster. 
 
