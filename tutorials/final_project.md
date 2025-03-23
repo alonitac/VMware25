@@ -27,7 +27,7 @@ You will set up an HA and vSAN cluster with three hosts, provision multiple virt
    
 - Migrate your hosts to the dSwitch. 
 - Configure a vSAN cluster:
-   - **Don't** enable ESA.
+   - **Don't** enable ENA.
    - Configure the 100GB SSD disk to be the cache tier.
    - Configure the 1TB disk in each host to be the capacity tier. 
    - Make sure your vSAN cluster consist by a single Disk Group (usually named `Group 1`).
@@ -75,12 +75,12 @@ Create a `docker-compose.yaml` file with the following `services`:
   - Mongo must be persist data in a Docker Volume. 
 - YOLO5 (AI service)
   - This app is an AI model that can detects 80 different objects in any natural image you provide. Listens on port `8081`.  
-  - Based on the [alonithuji/yolo5:v0.0.1](https://hub.docker.com/r/alonithuji/yolo5) image. 
+  - Based on the [exit0academy/yolo5:v0.0.1](https://hub.docker.com/r/exit0academy/yolo5) image. 
   - The predictions results are stored in a MongoDB database. The service connects to Mongo using the `MONGO_URL` environment variable (e.g. `mongodb://<your-mongo-hostname>:27017`).
 - Polybot (bot service)
   - This app is a Telegram bot. To receive message from Telegram servers into your bot app, you need a **Bot Token**, which is a string that authenticates your bot.
     Obtaining a token is as simple as contacting the `@BotFather` in your Telegram app, issuing the `/newbot` command and following the steps until you're given a new token. You can find a step-by-step guide [here](https://core.telegram.org/bots/features#creating-a-new-bot).
-  - Based on the [alonithuji/polybot:v0.0.1](https://hub.docker.com/r/alonithuji/polybot) image. 
+  - Based on the [exit0academy/polybot:v0.0.1](https://hub.docker.com/r/exit0academy/polybot) image. 
   - Communicates with YOLO5 service using the `YOLO5_URL` environment variable (e.g. `http://<your-yolo5-hostname>:8081`).
   - You should provide the image an environment variable `TELEGRAM_TOKEN` with your token value. But since your token is a secret, you cannot provide it as is in the `docker-compose.yaml` file. 
     Instead, create a `.env` file in the same directory of your compose YAML file, as follows:
