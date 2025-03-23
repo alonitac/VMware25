@@ -94,7 +94,9 @@ Create a `docker-compose.yaml` file with the following `services`:
     ```yaml
     services:
       polybot:
-        image: ${TELEGRAM_TOKEN}
+        image: ....
+        environment: 
+          TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
     ```
 
 
