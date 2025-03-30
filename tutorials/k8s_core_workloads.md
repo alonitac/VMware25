@@ -1,5 +1,23 @@
 # Kubernetes core workloads
 
+To work with your cluster:
+
+```bash
+aws eks update-kubeconfig --region us-east-1 --name k8s-lab2
+```
+
+Create  your own namesapce:
+
+```bash
+kubectl create ns <your-ns-alias>
+```
+
+To configure `kubectl` to work with your namespace only: 
+
+```bash
+kubectl config set-context --current --namespace=<your-ns-alias>
+```
+
 ## Workloads
 
 A **Workload** is an application running on Kubernetes.
