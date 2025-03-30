@@ -475,13 +475,10 @@ In this exercise you deploy the [NetflixMovieCatalog][NetflixMovieCatalog] and t
 > - **NetflixMovieCatalog**: `alonithuji/netflix-movie-catalog:0.0.1`
 > - **NetflixFrontend**: `alonithuji/netflix-frontend:0.0.1`
 
-1. Fork and clone both repos locally, open in your preferred IDE.
-2. Build a Docker image out of them (you have to create and implement a `Dockerfile` in the root directory of the repo, solution `Dockerfile` in the `dockerfile` Git branch)
-3. [Push your images to a DockerHub](https://docs.docker.com/get-started/introduction/build-and-push-first-image/) public registry. 
-2. Create the following `Deployment`s and the corresponding `Service`s for them:
+1. Create the following `Deployment`s and the corresponding `Service`s for them:
    - `netflix-movie-catalog` - listens on port `8080`, running in 2 replicas.
    - `netflix-frontend` - listens on port `3000`. In order for the app to fetch movies data, should be provided with an environment variable named `MOVIE_CATALOG_SERVICE` which is the address of the `netflix-movie-catalog` service. 
-3. Visit the app locally using `kubectl port-forward` command. E.g.:
+2. Visit the app locally using `kubectl port-forward` command. E.g.:
 
 ```bash
 kubectl port-forward service/YOUR_NETFLIX_FRONTEND_SERVICE_NAME 3000:3000
