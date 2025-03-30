@@ -261,7 +261,14 @@ All you lab environment is available through an RDP connection (access will be p
 </tr>
 
 <tr>
- <td align="center" colspan="8"><br><a href="tutorials/final_project.md">Final Assignment</a><br><br></td>
+ <td>22</td>
+ <td>Orchestration</td>
+ <td><a href="tutorials/k8s_core_workloads.md">k8s core workloads</a></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"><a href="tutorials/k8s_core_workloads.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
 </tr>
 
 </table>
