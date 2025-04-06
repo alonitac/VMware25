@@ -270,4 +270,8 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
 </tr>
 
+<tr>
+ <td align="center" colspan="8"><br><b><a href="tutorials/final_project.md">Final Project</a></b><br><br></td>
+</tr>
+
 </table>
