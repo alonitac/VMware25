@@ -9,6 +9,7 @@ In the following tutorial, we will create a AD domain composed by 2 computer.
 
 Amazon EC2 (Elastic Compute Cloud) is a web service that provides resizable compute capacity in the cloud. 
 It allows users to create and manage virtual machines, commonly referred to as "instances", which can be launched in a matter of minutes and configured with custom hardware, network settings, and operating systems.
+It allows users to create and manage virtual machines, commonly referred to as "instances", which can be launched in a matter of minutes and configured with custom hardware, network settings, and operating systems.
 
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/).
@@ -147,7 +148,7 @@ Now let's change the server name and add it to the domain.
 
 1. From the windows start button, go to **Server Manager**.
 2. Choose **Local Server**, click on your **Computer Name**.
-3. In the opened dialog, click **Change**, then change computer name to `DC-1`, and specify your domain DNS under **Member of:** -> **Domain**.
+3. In the opened dialog, click **Change**, then change computer name to `client-1`, and specify your domain DNS under **Member of:** -> **Domain**.
 4. You will be asked to log in, enter the username and password of the user belonging to the `developers` group. 
 
 Once the instance has joined the domain, the `Administrator` user you use to connect to the instance would be able to do so anymore, since he is not part of the domain.
