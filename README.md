@@ -237,7 +237,6 @@ All you lab environment is available through an RDP connection (access will be p
  <td></td>
 </tr>
 
-
 <tr>
  <td>20</td>
  <td>Orchestration</td>
@@ -262,9 +261,9 @@ All you lab environment is available through an RDP connection (access will be p
 
 <tr>
  <td>22</td>
- <td>Orchestration</td>
+ <td>Windows</td>
  <td><a href="tutorials/k8s_core_workloads.md">k8s core workloads</a></td>
- <td align="center"></td>
+ <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/windows_AD_DS.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
  <td align="center"></td>
  <td align="center"><a href="tutorials/k8s_core_workloads.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
  <td align="center"></td>
