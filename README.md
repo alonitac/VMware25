@@ -272,6 +272,17 @@ All you lab environment is available through an RDP connection (access will be p
 
 <tr>
  <td>23</td>
+ <td>Orchestration</td>
+ <td><a href="tutorials/k8s_config_objects.md">k8s config objects</a></td>
+ <td align="center"></td>
+ <td align="center"></td>
+ <td align="center"><a href="tutorials/k8s_config_objects.md#exercises"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/pen.png" /></a></td>
+ <td align="center"></td>
+ <td></td>
+</tr>
+
+<tr>
+ <td>23</td>
  <td>Windows</td>
  <td><a href="tutorials/windows_ad_intro.md">Intro to active directory</a></td>
  <td align="center"><a target="_blank" href="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/slides/windows_AD_DS.html"><img src="https://exit-zero-academy.github.io/DevOpsTheHardWayAssets/img/slides.png" /></a></td>
