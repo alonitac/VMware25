@@ -142,7 +142,7 @@ Hence, we have to configure our server to use the **domain controller** as the D
 2. Click on the available `Ethernet` connection. 
 3. In the opened dialog, choose **Properties**, then in the items list, choose **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**.
 4. Choose the **Use the following DNS server Address** button and under **Preferred DNS server**, specify the (private) ip address of your domain controller (if you don't remember, the address can be found in the instance info page in AWS console)
-
+5. As the **Alternate DNS server**, configure the default DNS server provided by AWS. You can get the address by executing `ipconfig /all` in the CMD, and look for Ipv4 address under `DNS Servers: ... `.
 
 Now let's change the server name and add it to the domain.
 
