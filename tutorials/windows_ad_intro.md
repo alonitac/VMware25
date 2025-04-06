@@ -1,5 +1,7 @@
 # Intro to Active Directory Environment
 
+AWS console login: https://228281126655.signin.aws.amazon.com/console
+
 In the following tutorial, we will create a AD domain composed by 2 computer.
 
 
